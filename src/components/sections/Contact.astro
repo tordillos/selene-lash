@@ -1,0 +1,31 @@
+---
+import ContactInfo from '@/components/blocks/ContactInfo.astro';
+import MapEmbed from '@/components/blocks/MapEmbed.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { site } from '@/config/site';
+---
+
+<Section id="contacto" tone="soft" labelledby="contacto-title">
+  <SectionHeader
+    eyebrow="Dónde estoy"
+    title="Cabina propia en L'Eixample, Valencia"
+    titleId="contacto-title"
+    maxWidth="600px"
+    spacing="sm"
+  />
+
+  <div class="contact">
+    <ContactInfo />
+    <MapEmbed src={site.contact.googleMapEmbedSrc} title={`${site.name} en Google Maps`} />
+  </div>
+</Section>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(26px, 3vw, 44px);
+    align-items: stretch;
+  }
+</style>

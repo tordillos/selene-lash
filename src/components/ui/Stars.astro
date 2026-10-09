@@ -1,0 +1,20 @@
+---
+interface Props {
+  rating?: number;
+  max?: number;
+}
+
+const { rating = 5, max = 5 } = Astro.props;
+---
+
+<span class="stars" role="img" aria-label={`${rating} de ${max} estrellas`}>
+  {'★'.repeat(rating)}{'☆'.repeat(Math.max(0, max - rating))}
+</span>
+
+<style>
+  .stars {
+    color: var(--color-accent);
+    letter-spacing: 0.28em;
+    font-size: 13px;
+  }
+</style>

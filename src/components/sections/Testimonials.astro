@@ -1,0 +1,50 @@
+---
+import TestimonialCard from '@/components/blocks/TestimonialCard.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import { site } from '@/config/site';
+import { getSorted } from '@/lib/content';
+
+const testimonials = await getSorted('testimonials');
+---
+
+<Section id="opiniones" tone="warm" labelledby="opiniones-title">
+  <SectionHeader
+    eyebrow="Opiniones"
+    title="Lo que dicen mis clientas"
+    titleId="opiniones-title"
+    align="center"
+    maxWidth="600px"
+  >
+    <Fragment slot="after">
+      <p class="testimonials__source">Reseñas verificadas en Google</p>
+      <div class="testimonials__link">
+        <TextLink href={site.contact.googleProfileHref} external>Ver perfil de Google</TextLink>
+      </div>
+    </Fragment>
+  </SectionHeader>
+
+  <div class="testimonials">
+    {testimonials.map(({ data }) => <TestimonialCard {...data} />)}
+  </div>
+</Section>
+
+<style>
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: clamp(18px, 2.4vw, 28px);
+  }
+
+  .testimonials__source {
+    margin-top: 18px;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--color-text-subtle);
+  }
+
+  .testimonials__link {
+    margin-top: 14px;
+  }
+</style>

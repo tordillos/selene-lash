@@ -1,0 +1,48 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site } from '@/config/site';
+---
+
+<BaseLayout title={`Página no encontrada | ${site.name}`} noindex>
+  <Section>
+    <div class="not-found">
+      <Eyebrow>Error 404</Eyebrow>
+      <Heading as="h1" size="xl">Esta página no existe</Heading>
+      <p>Puede que el enlace haya cambiado. Vuelve al inicio o escríbeme directamente.</p>
+      <div class="not-found__actions">
+        <Button href="/">Volver al inicio</Button>
+        <Button href={site.contact.whatsappHref} external variant="outline">Escríbeme por WhatsApp</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: 20px;
+    justify-items: center;
+    padding-top: var(--header-h);
+    text-align: center;
+  }
+
+  p {
+    max-width: 46ch;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--color-text-muted);
+  }
+
+  .not-found__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 10px;
+  }
+</style>

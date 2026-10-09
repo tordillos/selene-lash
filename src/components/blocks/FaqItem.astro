@@ -1,0 +1,90 @@
+---
+/**
+ * Pregunta desplegable. Varios FaqItem con el mismo `group` forman un
+ * acordeón exclusivo nativo (<details name>): solo uno abierto a la vez.
+ */
+interface Props {
+  question: string;
+  answer: string;
+  group?: string;
+  open?: boolean;
+}
+
+const { question, answer, group = 'faq', open = false } = Astro.props;
+---
+
+<details class="faq-item" name={group} open={open}>
+  <summary class="faq-item__question">
+    {question}
+    <span class="faq-item__icon" aria-hidden="true">+</span>
+  </summary>
+  <div class="faq-item__answer">
+    <p>{answer}</p>
+  </div>
+</details>
+
+<style>
+  .faq-item {
+    border-top: 1px solid var(--color-border-soft);
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-item__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: var(--text-quote);
+    color: var(--color-ink);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    flex: none;
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--color-accent);
+    transition: transform var(--duration) ease;
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(45deg);
+  }
+
+  /* Animación de apertura donde el navegador lo soporte (::details-content) */
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.5s var(--ease-out),
+      content-visibility 0.5s allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+
+  .faq-item__answer p {
+    max-width: 60ch;
+    padding-bottom: 26px;
+    font-size: 15px;
+    line-height: 1.75;
+    font-weight: 300;
+    color: var(--color-text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item::details-content,
+    .faq-item__icon {
+      transition: none;
+    }
+  }
+</style>

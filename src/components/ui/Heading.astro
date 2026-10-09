@@ -1,0 +1,53 @@
+---
+/**
+ * Titular con la escala tipográfica del diseño.
+ * `as` controla la semántica (h1–h4); `size` controla el aspecto.
+ */
+type Level = 'h1' | 'h2' | 'h3' | 'h4';
+type Size = 'display' | 'xl' | 'lg' | 'md' | 'sm';
+
+interface Props {
+  as?: Level;
+  size?: Size;
+  id?: string;
+  class?: string;
+}
+
+const { as: Tag = 'h2', size = 'xl', id, class: className } = Astro.props;
+---
+
+<Tag id={id} class:list={['heading', `heading--${size}`, className]}><slot /></Tag>
+
+<style>
+  .heading {
+    font-family: var(--font-display);
+    font-weight: 300;
+  }
+
+  .heading--display {
+    font-size: var(--text-display);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
+
+  .heading--xl {
+    font-size: var(--text-h2);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .heading--lg {
+    font-size: var(--text-h2-sm);
+    line-height: 1.1;
+  }
+
+  .heading--md {
+    font-size: var(--text-h3-lg);
+    line-height: 1.1;
+  }
+
+  .heading--sm {
+    font-size: var(--text-h3);
+    font-weight: 400;
+  }
+</style>

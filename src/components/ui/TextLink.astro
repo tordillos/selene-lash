@@ -1,0 +1,36 @@
+---
+interface Props {
+  href: string;
+  external?: boolean;
+  class?: string;
+}
+
+const { href, external = false, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['text-link', className]}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+>
+  <slot />
+</a>
+
+<style>
+  .text-link {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-border-strong);
+    padding-bottom: 6px;
+    transition:
+      color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease;
+  }
+
+  .text-link:hover {
+    border-color: currentColor;
+  }
+</style>

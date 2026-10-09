@@ -1,0 +1,96 @@
+---
+import '@/styles/global.css';
+import { getImage } from 'astro:assets';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import MobileBookingBar from '@/components/layout/MobileBookingBar.astro';
+import MobileMenu from '@/components/layout/MobileMenu.astro';
+import { site } from '@/config/site';
+import heroImage from '@/assets/images/hero.jpg';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Header transparente sobre un hero a sangre (solo la home). */
+  overlayHeader?: boolean;
+  /** No indexar (p. ej. 404). */
+  noindex?: boolean;
+}
+
+const { title = site.seo.title, description = site.seo.description, overlayHeader = false, noindex = false } = Astro.props;
+
+const isHome = Astro.url.pathname === '/';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: heroImage, width: 1200, format: 'jpeg' });
+const ogImageUrl = new URL(ogImage.src, Astro.site);
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BeautySalon',
+  name: site.name,
+  description: site.seo.description,
+  url: site.url,
+  image: ogImageUrl.href,
+  telephone: site.contact.phone.replace(/\s/g, ''),
+  email: site.contact.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    postalCode: site.address.postalCode,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    addressCountry: site.address.country,
+  },
+  openingHours: site.hours.schema,
+  sameAs: [site.contact.instagramHref],
+  priceRange: '€€',
+};
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#FBF7F3" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={isHome ? site.seo.ogTitle : title} />
+    <meta property="og:description" content={isHome ? site.seo.ogDescription : description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+  </head>
+
+  <body>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <Header overlay={overlayHeader} isHome={isHome} />
+    <MobileMenu isHome={isHome} />
+
+    <main id="contenido">
+      <slot />
+    </main>
+
+    <Footer isHome={isHome} />
+    <MobileBookingBar />
+
+    <script>
+      import '@/scripts/header';
+      import '@/scripts/reveal';
+    </script>
+  </body>
+</html>

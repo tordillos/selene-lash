@@ -1,0 +1,59 @@
+---
+import FaqItem from '@/components/blocks/FaqItem.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { getSorted } from '@/lib/content';
+
+const faqs = await getSorted('faqs');
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ data }) => ({
+    '@type': 'Question',
+    name: data.question,
+    acceptedAnswer: { '@type': 'Answer', text: data.answer },
+  })),
+};
+---
+
+<Section id="faq" labelledby="faq-title">
+  <div class="faq">
+    <SectionHeader
+      eyebrow="Preguntas frecuentes"
+      title="Antes de tu primera cita"
+      titleId="faq-title"
+      size="lg"
+      spacing="none"
+    >
+      <p slot="after" class="faq__lead">Si tu duda no está aquí, escríbeme por WhatsApp y te contesto yo misma.</p>
+    </SectionHeader>
+
+    <div class="faq__list" data-reveal>
+      {faqs.map(({ data }, i) => <FaqItem question={data.question} answer={data.answer} open={i === 0} />)}
+    </div>
+  </div>
+</Section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(30px, 5vw, 72px);
+    align-items: start;
+  }
+
+  .faq__lead {
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--color-text-muted);
+  }
+
+  .faq__list {
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import type { HTMLTag } from 'astro/types';
+
+type Tone = 'surface' | 'warm' | 'base';
+
+interface Props {
+  as?: HTMLTag;
+  tone?: Tone;
+  bordered?: boolean;
+  id?: string;
+  /** Activa la animación de entrada al hacer scroll. */
+  reveal?: boolean;
+  class?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const { as: Tag = 'div', tone = 'surface', bordered = false, reveal = true, class: className, ...rest } = Astro.props;
+---
+
+<Tag
+  class:list={['card', `card--${tone}`, { 'card--bordered': bordered }, className]}
+  data-reveal={reveal ? '' : undefined}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .card--surface {
+    background: var(--color-surface);
+    --card-border: var(--color-border-card);
+  }
+
+  .card--warm {
+    background: var(--color-bg-warm);
+    --card-border: var(--color-border-warm);
+  }
+
+  .card--base {
+    background: var(--color-bg);
+    --card-border: var(--color-border);
+  }
+
+  .card--bordered {
+    border: 1px solid var(--card-border);
+  }
+</style>

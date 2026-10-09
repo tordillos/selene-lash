@@ -1,0 +1,27 @@
+---
+interface Props {
+  tone?: 'accent' | 'light';
+  class?: string;
+}
+
+const { tone = 'accent', class: className } = Astro.props;
+---
+
+<span class:list={['eyebrow', `eyebrow--${tone}`, className]}><slot /></span>
+
+<style>
+  .eyebrow {
+    display: block;
+    font-size: 11px;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .eyebrow--accent {
+    color: var(--color-accent);
+  }
+
+  .eyebrow--light {
+    color: var(--color-hero-eyebrow);
+  }
+</style>

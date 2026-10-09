@@ -1,0 +1,23 @@
+---
+import About from '@/components/sections/About.astro';
+import Contact from '@/components/sections/Contact.astro';
+import Faq from '@/components/sections/Faq.astro';
+import Gallery from '@/components/sections/Gallery.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Services from '@/components/sections/Services.astro';
+import Testimonials from '@/components/sections/Testimonials.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import selenePortrait from '@/assets/images/selene.jpg';
+---
+
+<BaseLayout overlayHeader>
+  <div id="inicio">
+    <Hero />
+  </div>
+  <Services />
+  <Gallery />
+  <About portrait={selenePortrait} />
+  <Testimonials />
+  <Faq />
+  <Contact />
+</BaseLayout>

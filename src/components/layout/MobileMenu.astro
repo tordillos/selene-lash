@@ -1,0 +1,106 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Logo from '@/components/ui/Logo.astro';
+import { site, resolveHref } from '@/config/site';
+
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = true } = Astro.props;
+---
+
+<div
+  id="mobile-menu"
+  class="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú"
+  data-mobile-menu
+  inert
+>
+  <div class="mobile-menu__top">
+    <Logo tagline={false} />
+    <button type="button" class="mobile-menu__close" aria-label="Cerrar menú" data-menu-close>×</button>
+  </div>
+
+  <nav class="mobile-menu__nav" aria-label="Menú móvil">
+    {
+      site.nav.mobile.map((link) => (
+        <a href={resolveHref(link.href, isHome)} class="mobile-menu__link" data-menu-close>
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <Button href={resolveHref(site.booking.href, isHome)} block bookingSlot="mobile-menu" data-menu-close>
+    {site.booking.label}
+  </Button>
+</div>
+
+<style>
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-menu);
+    display: flex;
+    flex-direction: column;
+    padding: 26px clamp(22px, 7vw, 48px) 48px;
+    background: var(--color-bg-soft);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      opacity 0.45s ease;
+  }
+
+  .mobile-menu[data-open] {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-menu__close {
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: 0;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .mobile-menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-block: auto;
+  }
+
+  .mobile-menu__link {
+    padding: 10px 0;
+    font-family: var(--font-display);
+    font-size: 38px;
+    color: var(--color-ink);
+  }
+
+  .mobile-menu :global(.btn) {
+    padding: 20px;
+    font-size: 13px;
+  }
+
+  @media (min-width: 1080px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>

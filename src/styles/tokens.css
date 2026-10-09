@@ -1,0 +1,75 @@
+/*
+ * Design tokens — Selene Pestañas
+ * Única fuente de verdad para color, tipografía, espaciado y movimiento.
+ * Los componentes consumen estas variables; nunca valores hex sueltos.
+ */
+:root {
+  /* ─── Color · superficies ─── */
+  --color-bg: #fbf7f3;
+  --color-bg-soft: #f6efe8;
+  --color-bg-warm: #efe3da;
+  --color-surface: #fffdfb;
+  --color-placeholder: #e8dcd2;
+  --color-dark: #2e2724;
+
+  /* ─── Color · texto ─── */
+  --color-ink: #2e2724;
+  --color-ink-quote: #3a322d;
+  --color-text-muted: #6b5d54;
+  --color-text-warm: #5f5249;
+  --color-text-subtle: #7a6c63;
+  --color-text-faint: #8a7b71;
+  --color-on-dark: #e9ded5;
+  --color-on-accent: #fff9f5;
+  --color-hero-eyebrow: #f0dccf;
+  --color-hero-lead: #f4e7dd;
+
+  /* ─── Color · marca ─── */
+  --color-accent: #b0705a;
+  --color-accent-hover: #8c5442;
+  --color-selection: #e8cfc9;
+
+  /* ─── Color · bordes ─── */
+  --color-border: #eadfd5;
+  --color-border-card: #eee3d9;
+  --color-border-soft: #e5d9ce;
+  --color-border-warm: #e3d2c6;
+  --color-border-strong: #c9b4a5;
+
+  /* ─── Tipografía ─── */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', 'Helvetica Neue', Helvetica, sans-serif;
+
+  --text-display: clamp(32px, min(8.4vw, 8.2svh), 84px);
+  --text-h2: clamp(32px, 5vw, 56px);
+  --text-h2-sm: clamp(30px, 4.4vw, 50px);
+  --text-h3-lg: clamp(28px, 3.4vw, 38px);
+  --text-h3: 26px;
+  --text-quote: 21px;
+
+  --tracking-eyebrow: 0.34em;
+  --tracking-button: 0.2em;
+  --tracking-label: 0.16em;
+
+  /* ─── Layout ─── */
+  --container-max: 1280px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-y: clamp(70px, 10vw, 140px);
+  --header-h: 88px;
+  --mobile-bar-h: 88px;
+
+  /* ─── Forma ─── */
+  --radius: 2px;
+
+  /* ─── Movimiento ─── */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fast: 0.3s;
+  --duration: 0.4s;
+  --duration-slow: 0.55s;
+
+  /* ─── Capas ─── */
+  --z-header: 60;
+  --z-mobile-bar: 70;
+  --z-menu: 80;
+  --z-lightbox: 90;
+}

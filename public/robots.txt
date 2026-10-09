@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://selenepestanas.es/sitemap-index.xml

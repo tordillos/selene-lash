@@ -1,0 +1,94 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Media from '@/components/ui/Media.astro';
+import { site } from '@/config/site';
+import heroImage from '@/assets/images/hero.jpg';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Media
+    image={heroImage}
+    alt="Selene trabajando las cejas de una clienta en el estudio"
+    priority
+    widths={[640, 960, 1280, 1600, 1920]}
+  />
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <Container class="hero__content">
+    <Eyebrow tone="light" class="hero__eyebrow">Valencia · L'Eixample · Campeonato Lash &amp; Brow</Eyebrow>
+    <Heading as="h1" size="display" id="hero-title" class="hero__title">Extensiones de pestañas en Valencia</Heading>
+    <p class="hero__lead">
+      Realza tu mirada, natural y sin esfuerzo. Volumen ruso con técnica premiada y lifting de pestañas que respeta tu
+      pestaña natural, en pleno Eixample de Valencia.
+    </p>
+    <div class="hero__actions">
+      <Button href={site.booking.href} bookingSlot="hero">Reserva tu cita</Button>
+      <Button href="#servicios" variant="outline-light">Ver servicios</Button>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: min(100svh, 880px);
+    min-height: 520px;
+    overflow: hidden;
+    padding-top: clamp(72px, 9vh, 110px);
+  }
+
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgb(46 39 36 / 0.42) 0%,
+      rgb(46 39 36 / 0.18) 26%,
+      rgb(46 39 36 / 0.55) 58%,
+      rgb(46 39 36 / 0.86) 100%
+    );
+  }
+
+  .hero :global(.hero__content) {
+    position: relative;
+    padding: clamp(28px, 4vw, 44px) var(--gutter) 96px;
+    text-shadow: 0 1px 26px rgb(38 31 28 / 0.5);
+  }
+
+  @media (min-width: 1080px) {
+    .hero :global(.hero__content) {
+      padding-bottom: clamp(48px, 7vw, 88px);
+    }
+  }
+
+  .hero :global(.hero__eyebrow) {
+    margin-bottom: clamp(12px, 2.4svh, 22px);
+  }
+
+  .hero :global(.hero__title) {
+    max-width: 16ch;
+    color: var(--color-on-accent);
+  }
+
+  .hero__lead {
+    max-width: 46ch;
+    margin-top: clamp(12px, 2.4svh, 24px);
+    font-size: clamp(14px, 1.6vw, 18px);
+    line-height: 1.55;
+    font-weight: 300;
+    color: var(--color-hero-lead);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: clamp(20px, 3.4svh, 38px);
+  }
+</style>

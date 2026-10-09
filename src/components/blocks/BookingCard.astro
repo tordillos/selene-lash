@@ -1,0 +1,54 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Heading from '@/components/ui/Heading.astro';
+import { site } from '@/config/site';
+---
+
+<Card as="article" id="reservar" tone="warm" bordered class="booking-card" data-booking-slot="servicios">
+  <Eyebrow>Reservas online</Eyebrow>
+  <Heading as="h3" size="md" class="booking-card__title">¿No sabes qué te queda mejor?</Heading>
+  <p class="booking-card__text">
+    Escríbeme por WhatsApp o MD de Instagram y lo vemos juntas. La primera visita incluye diseño de mirada sin coste.
+  </p>
+  <div class="booking-card__actions">
+    <Button href={site.contact.whatsappHref} external block>{site.booking.label}</Button>
+  </div>
+  <p class="booking-card__note">Reservas por WhatsApp o MD · calendario online próximamente</p>
+</Card>
+
+<style>
+  .booking-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(30px, 3.5vw, 44px);
+  }
+
+  .booking-card :global(.booking-card__title) {
+    margin-top: 16px;
+  }
+
+  .booking-card__text {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--color-text-warm);
+  }
+
+  .booking-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .booking-card__note {
+    margin-top: 18px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--color-text-faint);
+  }
+</style>

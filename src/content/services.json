@@ -1,0 +1,62 @@
+[
+  {
+    "id": "clasicas",
+    "order": 1,
+    "title": "Extensiones clásicas",
+    "description": "Una extensión por pestaña natural. Efecto máscara de pestañas, para quien quiere que no se note nada.",
+    "duration": "2 h aprox.",
+    "price": 55,
+    "priceFrom": true,
+    "image": "../assets/images/servicios/clasicas.jpg",
+    "imageAlt": "extensiones de pestañas clásicas pelo a pelo, primer plano"
+  },
+  {
+    "id": "volumen",
+    "order": 2,
+    "title": "Volumen ruso",
+    "description": "Abanicos hechos a mano para densidad y profundidad. Del híbrido natural al volumen intenso.",
+    "duration": "2,5 h aprox.",
+    "price": 70,
+    "priceFrom": true,
+    "image": "../assets/images/servicios/volumen.jpg",
+    "imageAlt": "pestañas volumen ruso, mirada abierta, detalle de abanicos"
+  },
+  {
+    "id": "lifting",
+    "order": 3,
+    "title": "Lifting de pestañas",
+    "description": "Curvatura y nutrición sobre tu propia pestaña, con tinte incluido. Sin mantenimiento diario.",
+    "duration": "1 h aprox.",
+    "price": 45,
+    "image": "../assets/images/servicios/lifting.jpg",
+    "imageAlt": "resultado de lifting de pestañas, ojo abierto en primer plano"
+  },
+  {
+    "id": "laminado",
+    "order": 4,
+    "title": "Laminado de cejas",
+    "description": "Fija el vello y rellena huecos. Cejas peinadas y con volumen durante 6-8 semanas.",
+    "duration": "1 h aprox.",
+    "price": 40,
+    "image": "../assets/images/servicios/laminado.jpg",
+    "imageAlt": "resultado de laminado de cejas, retrato sobre fondo negro"
+  },
+  {
+    "id": "diseno",
+    "order": 5,
+    "title": "Diseño de cejas",
+    "description": "Mapeo, depilación y tinte adaptados a tus rasgos. La base de toda mirada equilibrada.",
+    "duration": "45 min aprox.",
+    "price": 25,
+    "imageAlt": "diseño y depilación de cejas con hilo, detalle"
+  },
+  {
+    "id": "hilo",
+    "order": 6,
+    "title": "Depilación con hilo",
+    "description": "Precisión milimétrica sin cera ni irritación. Ideal para pieles sensibles y para definir el contorno de la ceja.",
+    "duration": "30 min aprox.",
+    "price": 15,
+    "imageAlt": "depilación de cejas con hilo, detalle de la técnica"
+  }
+]

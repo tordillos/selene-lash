@@ -1,0 +1,57 @@
+---
+import type { ImageMetadata } from 'astro';
+import Card from '@/components/ui/Card.astro';
+import Media from '@/components/ui/Media.astro';
+import Stars from '@/components/ui/Stars.astro';
+
+interface Props {
+  quote: string;
+  author: string;
+  service: string;
+  rating?: number;
+  avatar?: ImageMetadata | undefined;
+}
+
+const { quote, author, service, rating = 5, avatar } = Astro.props;
+---
+
+<Card as="figure" tone="base" class="testimonial">
+  <Stars rating={rating} />
+  <blockquote class="testimonial__quote">«{quote}»</blockquote>
+  <figcaption class="testimonial__caption">
+    <Media image={avatar} alt={author} shape="circle" quiet sizes="44px" widths={[88]} class="testimonial__avatar" />
+    <span>{author} · {service}</span>
+  </figcaption>
+</Card>
+
+<style>
+  .testimonial {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: clamp(26px, 3vw, 38px);
+  }
+
+  .testimonial__quote {
+    font-family: var(--font-display);
+    font-size: var(--text-quote);
+    line-height: 1.45;
+    color: var(--color-ink-quote);
+  }
+
+  .testimonial__caption {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: auto;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+
+  .testimonial :global(.testimonial__avatar) {
+    width: 44px;
+    height: 44px;
+    flex: none;
+  }
+</style>

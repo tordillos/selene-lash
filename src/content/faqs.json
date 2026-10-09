@@ -1,0 +1,32 @@
+[
+  {
+    "id": "duracion-sesion",
+    "order": 1,
+    "question": "¿Cuánto dura la sesión?",
+    "answer": "Entre 45 minutos y 2 horas y media según el tratamiento. Es tiempo tumbada, con los ojos cerrados: muchas clientas se duermen."
+  },
+  {
+    "id": "duracion-extensiones",
+    "order": 2,
+    "question": "¿Cuánto duran las extensiones?",
+    "answer": "El relleno se hace cada 3-4 semanas. Con buenos cuidados algunas clientas llegan a cinco sin que se note."
+  },
+  {
+    "id": "pestana-natural",
+    "order": 3,
+    "question": "¿Dañan mi pestaña natural?",
+    "answer": "No, si el grosor y la longitud respetan tu pestaña. Por eso mido antes de aplicar y, si tu pestaña está débil, te propongo lifting en su lugar."
+  },
+  {
+    "id": "cuidados",
+    "order": 4,
+    "question": "¿Qué cuidados necesito?",
+    "answer": "Las primeras 24 h sin agua ni vapor. Después: peinado diario, limpiador específico y evitar productos oleosos en el ojo."
+  },
+  {
+    "id": "alergias",
+    "order": 5,
+    "question": "¿Y si tengo los ojos sensibles o alergias?",
+    "answer": "Trabajo con adhesivos de baja emisión y hago prueba previa en caso de sensibilidad. Cuéntame tu historial en la primera cita."
+  }
+]

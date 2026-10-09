@@ -1,0 +1,67 @@
+---
+import type { ImageMetadata } from 'astro';
+import Card from '@/components/ui/Card.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Media from '@/components/ui/Media.astro';
+import { formatPrice } from '@/lib/content';
+
+interface Props {
+  title: string;
+  description: string;
+  duration: string;
+  price: number;
+  priceFrom?: boolean;
+  image?: ImageMetadata | undefined;
+  imageAlt: string;
+}
+
+const { title, description, duration, price, priceFrom = false, image, imageAlt } = Astro.props;
+---
+
+<Card as="article" bordered class="service-card">
+  <Media image={image} alt={imageAlt} aspect="4/5" sizes="(min-width: 1080px) 400px, (min-width: 700px) 50vw, 100vw" />
+  <div class="service-card__body">
+    <Heading as="h3" size="sm">{title}</Heading>
+    <p class="service-card__text">{description}</p>
+    <div class="service-card__meta">
+      <span class="service-card__duration">{duration}</span>
+      <span class="service-card__price">{formatPrice(price, priceFrom)}</span>
+    </div>
+  </div>
+</Card>
+
+<style>
+  .service-card__body {
+    padding: clamp(22px, 2.5vw, 30px);
+  }
+
+  .service-card__text {
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 300;
+    color: var(--color-text-muted);
+  }
+
+  .service-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border-card);
+  }
+
+  .service-card__duration {
+    font-size: 12px;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+  }
+
+  .service-card__price {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    color: var(--color-accent);
+  }
+</style>

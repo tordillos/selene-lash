@@ -1,0 +1,132 @@
+---
+/**
+ * Visor de imágenes sobre <dialog> nativo (foco, Escape y capa superior gratis).
+ * Se abre desde cualquier elemento con data-lightbox-open="<id>" y data-index.
+ * Lógica en src/scripts/lightbox.ts.
+ */
+import type { ImageMetadata } from 'astro';
+import Media from '@/components/ui/Media.astro';
+
+interface Item {
+  alt: string;
+  image?: ImageMetadata | undefined;
+}
+
+interface Props {
+  id: string;
+  items: Item[];
+}
+
+const { id, items } = Astro.props;
+---
+
+<dialog id={id} class="lightbox" aria-label="Galería ampliada" data-lightbox>
+  <div class="lightbox__stage">
+    {
+      items.map((item, i) => (
+        <figure class="lightbox__slide" data-slide={i} hidden>
+          <Media image={item.image} alt={item.alt} aspect="1/1" fit="contain" sizes="min(92vw, 780px)" />
+        </figure>
+      ))
+    }
+  </div>
+
+  <button type="button" class="lightbox__btn lightbox__close" aria-label="Cerrar" data-lightbox-close>×</button>
+  {
+    items.length > 1 && (
+      <>
+        <button type="button" class="lightbox__btn lightbox__prev" aria-label="Anterior" data-lightbox-prev>
+          ‹
+        </button>
+        <button type="button" class="lightbox__btn lightbox__next" aria-label="Siguiente" data-lightbox-next>
+          ›
+        </button>
+      </>
+    )
+  }
+</dialog>
+
+<script>
+  import '@/scripts/lightbox';
+</script>
+
+<style>
+  .lightbox {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: clamp(16px, 5vw, 64px);
+    border: 0;
+    background: rgb(30 25 22 / 0.93);
+    opacity: 0;
+    transition:
+      opacity var(--duration) ease,
+      overlay var(--duration) allow-discrete,
+      display var(--duration) allow-discrete;
+  }
+
+  .lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+  }
+
+  @starting-style {
+    .lightbox[open] {
+      opacity: 0;
+    }
+  }
+
+  .lightbox::backdrop {
+    background: transparent;
+  }
+
+  .lightbox__stage {
+    width: min(92vw, 780px);
+  }
+
+  .lightbox__slide[hidden] {
+    display: none;
+  }
+
+  .lightbox__btn {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: 0;
+    color: var(--color-hero-lead);
+    font-family: var(--font-body);
+    font-weight: 300;
+    cursor: pointer;
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .lightbox__btn:hover {
+    opacity: 0.7;
+  }
+
+  .lightbox__close {
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+  }
+
+  .lightbox__prev,
+  .lightbox__next {
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 40px;
+  }
+
+  .lightbox__prev {
+    left: clamp(4px, 2vw, 24px);
+  }
+
+  .lightbox__next {
+    right: clamp(4px, 2vw, 24px);
+  }
+</style>

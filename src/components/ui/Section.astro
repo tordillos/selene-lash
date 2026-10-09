@@ -1,0 +1,61 @@
+---
+import Container from './Container.astro';
+
+type Tone = 'base' | 'soft' | 'warm' | 'dark';
+type Spacing = 'default' | 'compact' | 'none';
+
+interface Props {
+  id?: string;
+  tone?: Tone;
+  spacing?: Spacing;
+  /** Etiqueta accesible de la sección (si no hay un titular referenciable). */
+  label?: string;
+  /** id del titular que da nombre a la sección. */
+  labelledby?: string;
+  class?: string;
+}
+
+const { id, tone = 'base', spacing = 'default', label, labelledby, class: className } = Astro.props;
+---
+
+<section
+  id={id}
+  aria-label={label}
+  aria-labelledby={labelledby}
+  class:list={['section', `section--${tone}`, `section--${spacing}`, className]}
+>
+  <Container>
+    <slot />
+  </Container>
+</section>
+
+<style>
+  .section {
+    padding-inline: var(--gutter);
+  }
+
+  .section--default {
+    padding-block: var(--section-y);
+  }
+
+  .section--compact {
+    padding-block: clamp(20px, 3vw, 26px);
+  }
+
+  .section--base {
+    background: var(--color-bg);
+  }
+
+  .section--soft {
+    background: var(--color-bg-soft);
+  }
+
+  .section--warm {
+    background: var(--color-bg-warm);
+  }
+
+  .section--dark {
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+  }
+</style>

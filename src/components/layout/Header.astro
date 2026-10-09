@@ -1,0 +1,172 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Logo from '@/components/ui/Logo.astro';
+import { site, resolveHref } from '@/config/site';
+
+interface Props {
+  /** Sobre un hero oscuro empieza transparente; en el resto de páginas, sólido. */
+  overlay?: boolean;
+  isHome?: boolean;
+}
+
+const { overlay = true, isHome = true } = Astro.props;
+---
+
+<header class="header" data-header data-overlay={overlay ? '' : undefined}>
+  <nav class="header__nav" aria-label="Navegación principal">
+    <Logo href={resolveHref('#inicio', isHome)} class="header__logo" />
+
+    <ul class="header__links" role="list">
+      {
+        site.nav.primary.map((link) => (
+          <li>
+            <a href={resolveHref(link.href, isHome)} class="header__link">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="header__actions">
+      <Button href={resolveHref(site.booking.href, isHome)} size="sm" bookingSlot="header" class="header__cta">
+        {site.booking.label}
+      </Button>
+      <button
+        type="button"
+        class="header__burger"
+        aria-label="Abrir menú"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-menu-open
+      >
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .header {
+    --ink: var(--color-ink);
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: var(--z-header);
+    padding: 22px var(--gutter);
+    background: rgb(251 247 243 / 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--ink);
+    transition:
+      background 0.5s ease,
+      border-color 0.5s ease,
+      padding 0.5s ease,
+      color 0.5s ease;
+  }
+
+  .header[data-scrolled] {
+    padding-block: 14px;
+  }
+
+  /* Transparente sobre el hero solo en escritorio y antes de hacer scroll */
+  @media (min-width: 1080px) {
+    .header[data-overlay]:not([data-scrolled]) {
+      --ink: var(--color-on-accent);
+      background: transparent;
+      border-color: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+
+  .header :global(.header__logo),
+  .header :global(.header__logo:hover) {
+    color: var(--ink);
+    transition: color 0.5s ease;
+  }
+
+  .header__links {
+    display: none;
+    align-items: center;
+    gap: clamp(18px, 2.4vw, 38px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .header__link {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ink);
+    transition:
+      color 0.5s ease,
+      opacity var(--duration-fast) ease;
+  }
+
+  .header__link:hover {
+    color: var(--ink);
+    opacity: 0.7;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .header :global(.header__cta) {
+    display: none;
+  }
+
+  .header :global(.header__cta:hover) {
+    transform: translateY(-1px);
+  }
+
+  .header__burger {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .header__burger span {
+    display: block;
+    width: 26px;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  @media (min-width: 1080px) {
+    .header__links {
+      display: flex;
+    }
+
+    .header :global(.header__cta) {
+      display: inline-flex;
+    }
+
+    .header__burger {
+      display: none;
+    }
+  }
+</style>

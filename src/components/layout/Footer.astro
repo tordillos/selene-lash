@@ -1,0 +1,138 @@
+---
+import Container from '@/components/ui/Container.astro';
+import Logo from '@/components/ui/Logo.astro';
+import { site, resolveHref } from '@/config/site';
+
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = true } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <Container class="footer__grid">
+    <div>
+      <Logo size="lg" tagline={`${site.tagline} · Valencia`} />
+      <p class="footer__about">
+        Extensiones de pestañas, volumen ruso, lifting, laminado de cejas y depilación con hilo en Valencia.
+      </p>
+    </div>
+
+    <nav class="footer__col" aria-labelledby="footer-nav">
+      <h2 id="footer-nav" class="footer__title">Navegación</h2>
+      {site.nav.footer.map((link) => <a href={resolveHref(link.href, isHome)}>{link.label}</a>)}
+    </nav>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Contacto</h2>
+      <p class="footer__contact">
+        {site.name}<br />
+        {site.address.street} · {site.address.postalCode} {site.address.city}<br />
+        <a href={site.contact.phoneHref}>{site.contact.phone}</a>
+      </p>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Sígueme</h2>
+      <a href={site.contact.instagramHref} target="_blank" rel="noopener">Instagram</a>
+      <a href={site.contact.whatsappHref} target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </Container>
+
+  <Container class="footer__bottom">
+    <span>© {year} {site.name}</span>
+    <ul class="footer__legal" role="list">
+      {
+        site.nav.legal.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</footer>
+
+<style>
+  .footer {
+    padding: clamp(54px, 7vw, 86px) var(--gutter) calc(40px + var(--mobile-bar-h) + env(safe-area-inset-bottom));
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+  }
+
+  @media (min-width: 1080px) {
+    .footer {
+      padding-bottom: 40px;
+    }
+  }
+
+  .footer :global(.footer__grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: clamp(30px, 4vw, 56px);
+  }
+
+  .footer a {
+    color: var(--color-on-dark);
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .footer a:hover {
+    opacity: 0.7;
+  }
+
+  .footer__about {
+    margin-top: 22px;
+    max-width: 34ch;
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.75;
+  }
+
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .footer__title {
+    margin-bottom: 6px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  .footer__contact {
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .footer :global(.footer__bottom) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: 24px;
+    border-top: 1px solid rgb(233 222 213 / 0.16);
+    font-size: 12px;
+    opacity: 0.6;
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

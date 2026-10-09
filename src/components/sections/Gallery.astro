@@ -1,0 +1,75 @@
+---
+import Lightbox from '@/components/blocks/Lightbox.astro';
+import Media from '@/components/ui/Media.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import { site } from '@/config/site';
+import { getSorted } from '@/lib/content';
+
+const items = (await getSorted('gallery')).map(({ data }) => data);
+const lightboxId = 'gallery-lightbox';
+---
+
+<Section id="galeria" tone="soft" labelledby="galeria-title">
+  <SectionHeader eyebrow="Galería" title="Antes y después" titleId="galeria-title" maxWidth="560px" spacing="sm">
+    <TextLink slot="actions" href={site.contact.instagramHref} external>Ver en Instagram</TextLink>
+  </SectionHeader>
+
+  <ul class="gallery" role="list">
+    {
+      items.map((item, i) => (
+        <li>
+          <button
+            type="button"
+            class="gallery__item"
+            data-lightbox-open={lightboxId}
+            data-index={i}
+            aria-label={`Ampliar: ${item.alt}`}
+          >
+            <Media image={item.image} alt={item.alt} sizes="(min-width: 1080px) 25vw, 50vw" />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+
+  <Lightbox id={lightboxId} items={items} />
+</Section>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(8px, 1.2vw, 16px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 1080px) {
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .gallery__item {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background: var(--color-placeholder);
+    cursor: zoom-in;
+  }
+
+  .gallery__item :global(.media__img) {
+    transition: transform 0.8s var(--ease-out);
+  }
+
+  .gallery__item:hover :global(.media__img) {
+    transform: scale(1.04);
+  }
+</style>

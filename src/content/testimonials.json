@@ -1,0 +1,23 @@
+[
+  {
+    "id": "lucia",
+    "order": 1,
+    "quote": "Llevaba años probando salones y nunca me duraban. Con Selene llego a las cinco semanas con relleno y mis pestañas están enteras.",
+    "author": "Lucía M.",
+    "service": "Volumen híbrido"
+  },
+  {
+    "id": "nerea",
+    "order": 2,
+    "quote": "El laminado de cejas me cambió la cara sin maquillaje. Se nota que es campeona en esto: cada pelo en su sitio.",
+    "author": "Nerea P.",
+    "service": "Laminado de cejas"
+  },
+  {
+    "id": "carmen",
+    "order": 3,
+    "quote": "Me recomendó lifting en vez de extensiones porque mi pestaña estaba débil. Nadie me había dicho eso antes.",
+    "author": "Carmen R.",
+    "service": "Lifting de pestañas"
+  }
+]

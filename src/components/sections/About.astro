@@ -1,0 +1,96 @@
+---
+import type { ImageMetadata } from 'astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Media from '@/components/ui/Media.astro';
+import Section from '@/components/ui/Section.astro';
+
+interface Props {
+  portrait?: ImageMetadata;
+}
+
+const { portrait } = Astro.props;
+
+const credentials = [
+  'Medalla de oro en Volumen Ruso · Campeonato Lash & Brow',
+  'Formación anual en higiene y seguridad ocular',
+  'Depilación con hilo y diseño de mirada personalizado',
+];
+---
+
+<Section id="sobre-mi" labelledby="sobre-mi-title">
+  <div class="about">
+    <div data-reveal>
+      <Media
+        image={portrait}
+        alt="Retrato de Selene en el estudio"
+        aspect="4/5"
+        position="top"
+        sizes="(min-width: 700px) 50vw, 100vw"
+      />
+    </div>
+
+    <div data-reveal>
+      <Eyebrow class="about__eyebrow">Sobre mí</Eyebrow>
+      <Heading size="lg" id="sobre-mi-title">Soy Selene, y compito con lo mismo que trabajo cada día</Heading>
+      <p class="about__text">
+        Competir en el Campeonato Lash &amp; Brow me obligó a medir cada abanico al décimo de milímetro. Ese mismo nivel de
+        detalle es el que aplico en cabina: una clienta a la vez, sin solapar citas.
+      </p>
+      <p class="about__text about__text--follow">
+        Mi obsesión es la salud de tu pestaña natural. Si un tratamiento no te conviene, te lo digo — aunque signifique
+        perder la cita.
+      </p>
+      <ul class="about__credentials" role="list">
+        {credentials.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(34px, 6vw, 84px);
+    align-items: center;
+  }
+
+  .about :global(.about__eyebrow) {
+    margin-bottom: 18px;
+  }
+
+  .about__text {
+    margin-top: 22px;
+    font-size: 16px;
+    line-height: 1.75;
+    font-weight: 300;
+    color: var(--color-text-muted);
+  }
+
+  .about__text--follow {
+    margin-top: 16px;
+  }
+
+  .about__credentials {
+    display: grid;
+    gap: 14px;
+    margin: 34px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about__credentials li {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-warm);
+  }
+
+  .about__credentials li::before {
+    content: '—';
+    color: var(--color-accent);
+  }
+</style>

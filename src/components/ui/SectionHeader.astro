@@ -1,0 +1,88 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import Heading from './Heading.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** id del titular, para aria-labelledby de la sección. */
+  titleId?: string;
+  lead?: string;
+  size?: 'xl' | 'lg';
+  align?: 'start' | 'center';
+  /** Ancho máximo del bloque de texto. */
+  maxWidth?: string;
+  /** Separación respecto al contenido que sigue. */
+  spacing?: 'default' | 'sm' | 'none';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  titleId,
+  lead,
+  size = 'xl',
+  align = 'start',
+  maxWidth = '620px',
+  spacing = 'default',
+  class: className,
+} = Astro.props;
+
+const hasActions = Astro.slots.has('actions');
+---
+
+<div
+  class:list={[
+    'section-header',
+    `section-header--${align}`,
+    `section-header--space-${spacing}`, { 'section-header--split': hasActions }, className]}
+  data-reveal
+>
+  <div class="section-header__text" style={`--max-width:${maxWidth}`}>
+    <Eyebrow class="section-header__eyebrow">{eyebrow}</Eyebrow>
+    <Heading size={size} id={titleId}>{title}</Heading>
+    {lead && <p class="section-header__lead">{lead}</p>}
+    <slot name="after" />
+  </div>
+  {hasActions && <slot name="actions" />}
+</div>
+
+<style>
+  .section-header--space-default {
+    margin-bottom: clamp(44px, 6vw, 72px);
+  }
+
+  .section-header--space-sm {
+    margin-bottom: clamp(34px, 5vw, 56px);
+  }
+
+  .section-header__text {
+    max-width: var(--max-width);
+  }
+
+  .section-header--center .section-header__text {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-header--split {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .section-header :global(.section-header__eyebrow) {
+    margin-bottom: 18px;
+  }
+
+  .section-header__lead {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--color-text-muted);
+  }
+</style>
